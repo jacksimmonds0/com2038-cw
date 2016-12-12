@@ -1,20 +1,32 @@
+#VARIABLES
+#Set compiler
 CC = g++
 
+#Target function
+TARGET = main
+
+#Directories
 INCDIR = include
 SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
 
-CFLAGS = -g -Wall -I$(INCIDR)
+#Linker
+LINKER = g++ -o
 
-main: Dog.o Breed.o Main.o
-	$(CC) Dog.o Breed.o Main.o -o main
+#Flags
+FLAGS = -Wall -I$(INCDIR)
+CFLAGS = -g $(FLAGS)
+LFLAGS = $(FLAGS) -lm
 
-Main.o: $(SRCDIR)/Main.cpp $(INCDIR)/Dog.h $(INCDIR)/Breed.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/main.cpp
+#Generics
+SOURCES 	:= $(wildcard $(SRCDIR)/*.cpp)
+INCLUDES 	:= $(wildcard $(INCDIR)/*.h)
+OBJECTS 	:= $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
-Dog.o: $(SRCDIR)/Dog.cpp
-	$(INCDIR)/Dog.h
-		$(CC) $(CFLAGS) -c $(SRCDIR)/Dog.cpp
+#ACTUAL MAKE CODE
+$(BINDIR)/$(TARGET): $(OBJECTS)
+	@$(LINKER) $@ $(LFLAGS) $(OBJECTS)
 
-Breed.o: $(SRCDIR)/Breed.cpp
-	$(INCDIR)/Breed.h $(INCDIR)/Dog.h
-		$(CC) $(CFLAGS) -c $(SRCDIR)/Breed.cpp
+$(OBJECTS): $(OBJDIR)%.o : $(SRCDIR)/%.cpp
+	@$(CC) $(CFLAGS) -c $< -o $@

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string>
 
 
 class Dog{
@@ -11,14 +12,14 @@ class Dog{
 		Dog* mom;
 
 	public:
-		Dog(std::string name, std::string color, Dog* dad, Dog* mom);
+		Dog(std::string name, std::string color);
 		~Dog();
 
-		std::string getName(){
+		virtual std::string getName(){
 			return name;
 		}
 
-		std::string getColor(){
+		virtual std::string getColor(){
 			return color;
 		}
 
@@ -30,4 +31,4 @@ class Dog{
 			return mom;
 		}
 
-}
+};

@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <Dog.h>
+#include <string>
+#include "Dog.h"
 
 class Breed: public Dog{
 
@@ -7,10 +8,10 @@ class Breed: public Dog{
 		std::string breedName;
 
 	public:
-		Breed(std::string breedName);
-		using Dog::Dog;
+		Breed(std::string name, std::string color, std::string bn);
+		~Breed();
 
 		std::string getBreedName(){
 			return breedName;
 		}
-}
+};
