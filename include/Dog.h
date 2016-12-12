@@ -12,7 +12,7 @@ class Dog{
 		Dog* mom;
 
 	public:
-		Dog(std::string name, std::string color);
+		Dog(std::string name, std::string color, Dog * dd, Dog * md);
 		~Dog();
 
 		virtual std::string getName(){
