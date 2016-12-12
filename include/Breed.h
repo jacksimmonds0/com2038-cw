@@ -8,7 +8,7 @@ class Breed: public Dog{
 		std::string breedName;
 
 	public:
-		Breed(std::string name, std::string color, std::string bn);
+		Breed(std::string name = "default", std::string color = "default", std::string bn = "default");
 		~Breed();
 
 		std::string getBreedName(){
