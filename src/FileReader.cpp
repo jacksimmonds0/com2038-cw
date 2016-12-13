@@ -48,7 +48,7 @@ int FileReader::totalDogs(string filename)
 	file.open(filename);
 
 	if(file.fail()) {
-		// if file fails to open output and error and exit
+		// if file fails to open output an error and exit
 		cerr << "Error opening file" << endl;
 		exit(1);
 	}
@@ -59,6 +59,7 @@ int FileReader::totalDogs(string filename)
 
 	while(!file.eof()) {
 		file >> line2;
+		// total the no of dogs in the file
 		total++;
 	}
 
@@ -160,8 +161,10 @@ void FileReader::fileReader(string filename)
 
 			// set the dad/mom pointers to the correct object
 
-
-
+		}
+		// at the end of the line add N/A if last token is null
+		if(counter == 4) {
+			printElement("N/A", nameWidth);
 		}
 		cout << '\n';
 	}
