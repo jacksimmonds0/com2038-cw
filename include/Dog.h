@@ -1,34 +1,42 @@
 #include <stdio.h>
 #include <string>
 
+using namespace std;
 
-class Dog{
-
+class Dog {
 
 	private:
-		std::string name;
-		std::string color;
+		string name;
+		string color;
 		Dog* dad;
 		Dog* mom;
 
 	public:
-		Dog(std::string name, std::string color, Dog * dd, Dog * md);
+		Dog(string name, string color);
 		~Dog();
 
-		virtual std::string getName(){
+		virtual string getName() {
 			return name;
 		}
 
-		virtual std::string getColor(){
+		virtual string getColor() {
 			return color;
 		}
 
-		Dog * getDad(){
+		Dog * getDad() {
 			return dad;
 		}
 
-		Dog * getMom(){
+		Dog * getMom() {
 			return mom;
+		}
+
+		void setDad(Dog* d) {
+			dad = d;
+		}
+
+		void setMom(Dog* m) {
+			mom = m;
 		}
 
 };

@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <iostream>
 #include "Breed.h"
+#include "FileReader.h"
 
+using namespace std;
 
-int main(){
+int main() {
 
-	Dog* dog1 = new Dog("janice", "brown",  NULL, NULL);
-	Dog* dog2 = new Dog("janice2", "brown2", NULL, NULL);
+	Breed test("scooby doo", "brown", "husky");
 
-	// std::cout << "name:  " + test.getName() << std::endl;
-	// std::cout << "color:  " + test.getColor() << std::endl;
-	// std::cout << "breed:  " + test.getBreedName() << std::endl;
+	Breed *ptr1 = &test;
 
+	Breed test1("scrappy doo", "green", "husky");
+	test1.setDad(ptr1);
 
-	Breed child("Janice2.5", "red", "husky", dog1, dog2);
+	cout << "Dad: " + test1.getDad() -> getName() << endl;
+	cout << "Son: " + test1.getName() << endl;
 
-	std::cout << "name:  " + child.getName() << std::endl;
-	std::cout << "dad:  " + child.getDad()->getName() << std::endl;
-
+	FileReader* read = new FileReader();
+	read -> fileReader("bin/inventory.csv");
 }

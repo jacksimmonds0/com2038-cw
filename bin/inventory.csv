@@ -1,0 +1,6 @@
+Husky,husky,white,,
+Boxer,boxer,black,,
+Corgi,corgi,brown,,
+Husky,huxer,grey,husky,boxer
+Boxer,boxgi,brown,boxer,corgi
+Boxer,baby,black,huxer,boxgi

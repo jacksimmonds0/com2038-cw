@@ -1,11 +1,12 @@
 #include "Breed.h"
 #include <string>
 
-Breed::Breed(std::string name, std::string color, std::string bn, Dog * dd, Dog * md) : Dog(name, color, dd, md){
+using namespace std;
+
+Breed::Breed(string name, string color, string bn) : Dog(name, color){
 	name = name;
 	color = color;
 	breedName = bn;
-	
 }
 
 Breed::~Breed(){
