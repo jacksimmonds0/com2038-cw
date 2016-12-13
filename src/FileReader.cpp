@@ -1,10 +1,10 @@
 #include "FileReader.h"
-#include "Breed.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -34,8 +34,13 @@ void FileReader::paternalTree()
 
 	cout << '\n';
 
-	
+	for(int i = 0; i < inventory.size(); i++) {
+		if(inputName == inventory[i].getName()) {
 
+		}
+
+	}
+	cout << inputName + " was not found in the inventory!" << endl;
 
 }
 
@@ -160,8 +165,26 @@ void FileReader::fileReader(string filename)
 			Breed dog(breed, name, colour);
 
 			// set the dad/mom pointers to the correct object
+			for(int i = 0; i < inventory.size(); i++) {
+				if(!inventory.empty()) {
 
+					if(inventory[i].getName() == dadName) {
+						Breed *ptr1 = new Breed("", "", "");
+						*ptr1 = &inventory[i];
+						dog.setDad(ptr1);
+					}
+
+					if(inventory[i].getName() == momName) {
+						Breed ptr2 = new Breed("", "", "");
+						Breed *ptr2 = &inventory[i];
+						dog.setMom(ptr2);
+					}
+				}	
+			}
+			// add the dog to the inventory vector
+			inventory.push_back(dog);
 		}
+
 		// at the end of the line add N/A if last token is null
 		if(counter == 4) {
 			printElement("N/A", nameWidth);
