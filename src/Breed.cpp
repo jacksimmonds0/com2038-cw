@@ -12,3 +12,4 @@ Breed::Breed(string name, string color, string bn) : Dog(name, color){
 Breed::~Breed(){
 
 }
+

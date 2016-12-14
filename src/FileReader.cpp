@@ -40,12 +40,26 @@ void FileReader::paternalTree()
 
 	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
-
+			Dog *dog = inventory[i].getDad();
+			traverseTree(dog, "");
 		}
-
+		else if(i == inventory.size()) {
+			cout << inputName + " was not found in the inventory!" << endl;
+		}
 	}
-	cout << inputName + " was not found in the inventory!" << endl;
+}
 
+string FileReader::traverseTree(Dog *dog, string output) 
+{
+	// base case
+	if(dog -> getDad() -> getName() == "N/A") {
+		output += " <-- [END]";
+		return output;
+	}
+	else {
+		output += (dog -> getDad() -> getName() + " <-- ");
+		return traverseTree(dog -> getDad(), output);
+	}
 }
 
 // count the total number of dogs in the inventory
@@ -110,15 +124,15 @@ void FileReader::fileReader(string filename)
 		string token;
 		int counter = 0;
 
+		// fields to build a breed object
+		string breed;
+		string name;
+		string colour;
+		string dadName;
+		string momName;
+
 		// split the line up by commas
 		while(getline(ss, token, ',')) {
-
-			// fields to build a breed object
-			string breed;
-			string name;
-			string colour;
-			string dadName;
-			string momName;
 
 			//cout << "HELLOOO" << endl;
 
@@ -173,14 +187,12 @@ void FileReader::fileReader(string filename)
 				if(!inventory.empty()) {
 
 					if(inventory[i].getName() == dadName) {
-						Breed *ptr1 = new Breed("", "", "");
-						*ptr1 = inventory[i];
+						Breed *ptr1 = &inventory[i];
 						dog.setDad(ptr1);
 					}
 
 					if(inventory[i].getName() == momName) {
-						Breed *ptr2 = new Breed("", "", "");
-						*ptr2 = inventory[i];
+						Breed *ptr2 = &inventory[i];
 						dog.setMom(ptr2);
 					}
 				}	
