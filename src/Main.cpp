@@ -18,5 +18,5 @@ int main() {
 	cout << "Son: " + test1.getName() << endl;
 
 	FileReader* read = new FileReader();
-	read -> fileReader("bin/inventory.csv");
+	read -> fileReader("inventory.csv");
 }

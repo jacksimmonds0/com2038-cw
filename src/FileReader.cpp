@@ -5,6 +5,10 @@
 #include <sstream>
 #include <iomanip>
 #include <vector>
+#include <stdlib.h>
+#include <errno.h>
+#include <stdio.h>
+#include <cstring>
 
 using namespace std;
 
@@ -34,7 +38,7 @@ void FileReader::paternalTree()
 
 	cout << '\n';
 
-	for(int i = 0; i < inventory.size(); i++) {
+	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
 
 		}
@@ -49,12 +53,11 @@ int FileReader::totalDogs(string filename)
 {
 	// input stream
 	ifstream file;
-
-	file.open(filename);
+	file.open(filename.c_str());
 
 	if(file.fail()) {
 		// if file fails to open output an error and exit
-		cerr << "Error opening file" << endl;
+		cerr << "Error opening file: " << strerror(errno);
 		exit(1);
 	}
 
@@ -76,14 +79,14 @@ void FileReader::fileReader(string filename)
 {
 	// open input stream for the file
 	ifstream file;
-
+	
 	// open the file stream for the required file
-	file.open(filename);
+	file.open(filename.c_str());
 
 	// ensure the file can be opened
 	if(file.fail()) {
 		// if fail output and error and exit
-		cerr << "Error opening file" << endl;
+		cerr << "Error opening file: " << strerror(errno);
 		exit(1);
 	}
 
@@ -117,6 +120,8 @@ void FileReader::fileReader(string filename)
 			string dadName;
 			string momName;
 
+			//cout << "HELLOOO" << endl;
+
 			// depending on which token the word is in the line apply different
 			// rules accordingly using a switch statement
 			counter++;
@@ -129,13 +134,12 @@ void FileReader::fileReader(string filename)
 				case 1:
 					// breed
 					breed = token;
-					printElement(token, nameWidth);
 					break;
-
 				case 2:
 					// name
-					name = token;
-					printElement(token, nameWidth);
+					name  = token;
+					printElement(name, nameWidth);
+					printElement(breed, nameWidth);
 					break;
 
 				case 3: 	
@@ -162,21 +166,21 @@ void FileReader::fileReader(string filename)
 			}
 
 			// create a breed object based on the tokens in the line
-			Breed dog(breed, name, colour);
+			Breed dog(name, colour, breed);
 
 			// set the dad/mom pointers to the correct object
-			for(int i = 0; i < inventory.size(); i++) {
+			for(unsigned int i = 0; i < inventory.size(); i++) {
 				if(!inventory.empty()) {
 
 					if(inventory[i].getName() == dadName) {
 						Breed *ptr1 = new Breed("", "", "");
-						*ptr1 = &inventory[i];
+						*ptr1 = inventory[i];
 						dog.setDad(ptr1);
 					}
 
 					if(inventory[i].getName() == momName) {
-						Breed ptr2 = new Breed("", "", "");
-						Breed *ptr2 = &inventory[i];
+						Breed *ptr2 = new Breed("", "", "");
+						*ptr2 = inventory[i];
 						dog.setMom(ptr2);
 					}
 				}	

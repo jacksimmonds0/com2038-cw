@@ -1,3 +1,5 @@
+#ifndef  BREED_H
+#define  BREED_H
 #include <stdio.h>
 #include <string>
 #include "Dog.h"
@@ -17,3 +19,5 @@ class Breed: public Dog {
 			return breedName;
 		}
 };
+
+#endif
