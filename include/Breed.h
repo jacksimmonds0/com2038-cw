@@ -2,16 +2,18 @@
 #include <string>
 #include "Dog.h"
 
-class Breed: public Dog{
+using namespace std;
+
+class Breed: public Dog {
 
 	private:
-		std::string breedName;
+		string breedName;
 
 	public:
-		Breed(std::string name = "default", std::string color = "default", std::string bn = "default", Dog * dd = NULL, Dog * md = NULL);
+		Breed(string name = "default", string color = "default", string bn = "default");
 		~Breed();
 
-		std::string getBreedName(){
+		string getBreedName() {
 			return breedName;
 		}
 };
