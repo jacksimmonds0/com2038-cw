@@ -133,13 +133,13 @@ void FileReader::fileReader(string filename)
 			switch(counter) {
 				case 1:
 					// breed
-					name = token;
-					printElement(token, nameWidth);
+					breed = token;
 					break;
 				case 2:
 					// name
-					breed = token;
-					printElement(token, nameWidth);
+					name  = token;
+					printElement(name, nameWidth);
+					printElement(breed, nameWidth);
 					break;
 
 				case 3: 	
