@@ -43,7 +43,7 @@ void FileReader::paternalTree()
 			Dog *dog = inventory[i].getDad();
 			traverseTree(dog, "");
 		}
-		else if(i == inventory.size()) {
+		else if(i == inventory.size()-1) {
 			cout << inputName + " was not found in the inventory!" << endl;
 		}
 	}
@@ -179,35 +179,50 @@ void FileReader::fileReader(string filename)
 					break;
 			}
 
-			// create a breed object based on the tokens in the line
-			Breed dog(name, colour, breed);
-
-			// set the dad/mom pointers to the correct object
-			for(unsigned int i = 0; i < inventory.size(); i++) {
-				if(!inventory.empty()) {
-
-					if(inventory[i].getName() == dadName) {
-						Breed *ptr1 = &inventory[i];
-						dog.setDad(ptr1);
-					}
-
-					if(inventory[i].getName() == momName) {
-						Breed *ptr2 = &inventory[i];
-						dog.setMom(ptr2);
-					}
-				}	
-			}
-			// add the dog to the inventory vector
-			inventory.push_back(dog);
-		}
+			
+ 		}
 
 		// at the end of the line add N/A if last token is null
 		if(counter == 4) {
 			printElement("N/A", nameWidth);
 		}
 		cout << '\n';
+
+		// create a breed object based on the tokens in the line
+		Breed dog(name, colour, breed);
+
+		// set the dad/mom pointers to the correct object
+		for(unsigned int i = 0; i < inventory.size(); i++) {
+			if(!inventory.empty()) {
+
+				if(inventory[i].getName() == dadName) {
+					Breed *ptr1 = &inventory[i];
+					dog.setDad(ptr1);
+				}
+
+				if(inventory[i].getName() == momName) {
+					Breed *ptr2 = &inventory[i];
+					dog.setMom(ptr2);
+				}
+
+				if(i == inventory.size() - 1) {
+					Breed dog2("N/A", "", "");
+
+					Breed *ptr3 = &dog2;
+					dog.setDad(ptr3);
+					dog.setMom(ptr3);
+				}
+			}	
+		}
+		// add the dog to the inventory vector
+		inventory.push_back(dog);
+
 	}
 	cout << '\n';
+
+	for(unsigned int i = 0; i < inventory.size(); i++) {
+		cout << inventory[i].getName() << endl;
+	}
 
 	paternalTree();
 }
