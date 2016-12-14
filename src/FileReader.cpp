@@ -40,8 +40,8 @@ void FileReader::paternalTree()
 
 	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
-			Dog *dog = inventory[i].getDad();
-			traverseTree(dog, "");
+			Dog *dog = &inventory[i];
+			cout << inputName + " <-- " << traverseTree(dog, "") << endl;
 		}
 		else if(i == inventory.size()-1) {
 			cout << inputName + " was not found in the inventory!" << endl;
@@ -51,14 +51,16 @@ void FileReader::paternalTree()
 
 string FileReader::traverseTree(Dog *dog, string output) 
 {
+	Dog *ptr = dog;
+
 	// base case
-	if(dog -> getDad() -> getName() == "N/A") {
-		output += " <-- [END]";
+	if(ptr -> getDad() -> getName() == "N/A") {
+		output += " [END]";
 		return output;
 	}
 	else {
-		output += (dog -> getDad() -> getName() + " <-- ");
-		return traverseTree(dog -> getDad(), output);
+		output += (ptr -> getDad() -> getName() + " <-- ");
+		return traverseTree(ptr -> getDad(), output);
 	}
 }
 
@@ -205,12 +207,13 @@ void FileReader::fileReader(string filename)
 					dog.setMom(ptr2);
 				}
 
-				if(i == inventory.size() - 1) {
+				else if(i == inventory.size() - 1) {
 					Breed dog2("N/A", "", "");
 
 					Breed *ptr3 = &dog2;
 					dog.setDad(ptr3);
 					dog.setMom(ptr3);
+
 				}
 			}	
 		}
@@ -219,10 +222,6 @@ void FileReader::fileReader(string filename)
 
 	}
 	cout << '\n';
-
-	for(unsigned int i = 0; i < inventory.size(); i++) {
-		cout << inventory[i].getName() << endl;
-	}
 
 	paternalTree();
 }
