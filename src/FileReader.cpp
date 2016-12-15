@@ -139,11 +139,7 @@ void FileReader::fileReader(string filename)
 		int counter = 0;
 
 		// fields to build a breed object
-		string breed;
-		string name;
-		string colour;
-		string dadName;
-		string momName;
+		string breed, name, colour, dadName, momName;
 
 		// split the line up by commas
 		while(getline(ss, token, ',')) {
@@ -159,56 +155,39 @@ void FileReader::fileReader(string filename)
 			switch(counter) {
 				case 1:
 					// breed
-					if(token.compare("Husky") ==0 || token.compare("Corgi") == 0 || token.compare("Boxer") == 0){
-						breed = token;
-					}
-					else{
-						throw invalid_argument(token+ " is not a valid breed name - must be Husky, Corgi or Boxer");
-					}
+					breed = token;
 					break;
 				case 2:
 					// name
 					name  = token;
-					printElement(name, nameWidth);
-					printElement(breed, nameWidth);
 					break;
 
 				case 3: 	
 					// colour
 					colour = token;
-					printElement(token, nameWidth);
 					break;
 
 				case 4:
 					// dads name
 					dadName = token;
-					printElement(token, nameWidth);
 					break;
 
 				case 5:
 					// moms name
 					momName = token;
-					printElement(token, nameWidth);
 					break;
 
 				default:
-					cout << "error" << endl;
+					// error handling for the CSV file formatting
+					throw invalid_argument("\nCSV file is not formatted correctly");
 					break;
 			}
-
-			
  		}
-
-		// at the end of the line add N/A if last token is null
-		if(counter == 4) {
-			printElement("N/A", nameWidth);
-		}
-		cout << '\n';
 
 		// create a breed object based on the tokens in the line
 		Breed dog(name, colour, breed);
 
-		bool hasDad, hasMom;
+		bool hasDad = false, hasMom = false;
 
 		// set the dad/mom pointers to the correct object
 		for(unsigned int i = 0; i < inventory.size(); i++) {
@@ -228,19 +207,35 @@ void FileReader::fileReader(string filename)
 			}	
 		}
 
-		if(!hasDad || !hasMom) {
+		if(!hasDad) {
 			Breed dog2("N/A", "black", "Husky");
 
 			Breed *ptr3 = &dog2;
 			dog.setDad(ptr3);
-			dog.setMom(ptr3);
+		}
 
+		if(!hasMom) {
+			Breed dog3("N/A", "black", "Husky");
+
+			Breed *ptr4 = &dog3;
+			dog.setMom(ptr4);
 		}
 
 		// add the dog to the inventory vector
 		inventory.push_back(dog);
 
 	}
+
+	// print all the elements in the vector to the table
+	for(unsigned int i = 0; i < inventory.size(); i++) {
+		printElement(inventory[i].getName(), nameWidth);
+		printElement(inventory[i].getBreedName(), nameWidth);
+		printElement(inventory[i].getColor(), nameWidth);
+		printElement(inventory[i].getDad() -> getName(), nameWidth);
+		printElement(inventory[i].getMom() -> getName(), nameWidth);
+		cout << '\n';
+	}
+
 	cout << '\n';
 
 	paternalTree();
