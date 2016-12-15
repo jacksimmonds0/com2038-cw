@@ -30,6 +30,22 @@ void FileReader::printHeaders(int total)
 // method for the user to input a dogs name and output the paternal tree onto the cmd line
 void FileReader::paternalTree()
 {
+	const int nameWidth = 9;
+
+	// print all the elements in the vector to the table
+	if(first) {
+		for(unsigned int i = 0; i < inventory.size(); i++) {
+			printElement(inventory[i].getName(), nameWidth);
+			printElement(inventory[i].getBreedName(), nameWidth);
+			printElement(inventory[i].getColor(), nameWidth);
+			printElement(inventory[i].getDad() -> getName(), nameWidth);
+			printElement(inventory[i].getMom() -> getName(), nameWidth);
+			cout << '\n';
+		}
+		first = false;
+	}
+
+	cout << '\n';
 	string inputName;
 	cout << "Enter the dog's name to find its paternal tree: ";
 
@@ -44,7 +60,7 @@ void FileReader::paternalTree()
 		if(inputName == inventory[i].getName()) {
 			Dog *dog = &inventory[i];
 			inInventory = true;
-			cout << inputName + " <-- " << traverseTree(dog, "") + "\n" << endl;
+			cout << inputName + " <-- " << traverseTree(dog, "") << endl;
 		}	
 	}
 
@@ -56,7 +72,6 @@ void FileReader::paternalTree()
 
 	if(!inInventory) {
 		cout << inputName + " was not found in the inventory!" << endl;
-		cout << '\n';
 	}
 
 	paternalTree();
@@ -105,6 +120,8 @@ int FileReader::totalDogs(string filename)
 // reading the csv file for the inventory input
 void FileReader::fileReader(string filename) 
 {
+	first = true;
+
 	// open input stream for the file
 	ifstream file;
 	
@@ -124,8 +141,6 @@ void FileReader::fileReader(string filename)
 	int total = totalDogs(filename);
 
 	printHeaders(total);
-
-	const int nameWidth = 9;
 
 	// while the file is not at the end of the lines in the file
 	while(!file.eof()) {
@@ -224,16 +239,6 @@ void FileReader::fileReader(string filename)
 		// add the dog to the inventory vector
 		inventory.push_back(dog);
 
-	}
-
-	// print all the elements in the vector to the table
-	for(unsigned int i = 0; i < inventory.size(); i++) {
-		printElement(inventory[i].getName(), nameWidth);
-		printElement(inventory[i].getBreedName(), nameWidth);
-		printElement(inventory[i].getColor(), nameWidth);
-		printElement(inventory[i].getDad() -> getName(), nameWidth);
-		printElement(inventory[i].getMom() -> getName(), nameWidth);
-		cout << '\n';
 	}
 
 	cout << '\n';
