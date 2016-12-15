@@ -18,5 +18,10 @@ int main() {
 	// cout << "Son: " + test1.getName() << endl;
 
 	FileReader* read = new FileReader();
-	read -> fileReader("bin/inventory.csv");
+	try{
+		read -> fileReader("inventory.csv");
+	}
+	catch(const invalid_argument& e){
+		cout << e.what() << endl;
+	}
 }
