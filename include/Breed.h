@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// class breed inherits dog so the breed 
 class Breed: public Dog {
 
 	private:
