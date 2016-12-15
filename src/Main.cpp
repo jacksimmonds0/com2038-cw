@@ -7,15 +7,15 @@ using namespace std;
 
 int main() {
 
-	Breed test("scooby doo", "brown", "husky");
+	// Breed test("scooby doo", "brown", "husky");
 
-	Breed *ptr1 = &test;
+	// Breed *ptr1 = &test;
 
-	Breed test1("scrappy doo", "green", "husky");
-	test1.setDad(ptr1);
+	// Breed test1("scrappy doo", "green", "husky");
+	// test1.setDad(ptr1);
 
-	cout << "Dad: " + test1.getDad() -> getName() << endl;
-	cout << "Son: " + test1.getName() << endl;
+	// cout << "Dad: " + test1.getDad() -> getName() << endl;
+	// cout << "Son: " + test1.getName() << endl;
 
 	FileReader* read = new FileReader();
 	read -> fileReader("bin/inventory.csv");

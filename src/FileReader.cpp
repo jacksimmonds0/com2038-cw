@@ -38,7 +38,7 @@ void FileReader::paternalTree()
 
 	cout << '\n';
 
-	bool inInventory;
+	bool inInventory = false;
 
 	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
@@ -57,10 +57,9 @@ void FileReader::paternalTree()
 string FileReader::traverseTree(Dog *dog, string output) 
 {
 	Dog *ptr = dog;
-	//cout << ptr -> getDad() -> getName() + "====" << endl;
 	// base case
 	if(ptr -> getDad() -> getName() == "N/A") {
-		output += " [END]";
+		output += "[END]";
 		return output;
 	}
 	else {
@@ -140,8 +139,6 @@ void FileReader::fileReader(string filename)
 
 		// split the line up by commas
 		while(getline(ss, token, ',')) {
-
-			//cout << "HELLOOO" << endl;
 
 			// depending on which token the word is in the line apply different
 			// rules accordingly using a switch statement
