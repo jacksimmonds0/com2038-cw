@@ -12,7 +12,7 @@ class Breed: public Dog {
 		string breedName;
 
 	public:
-		Breed(string name = "default", string color = "default", string bn = "default");
+		Breed(string name, string color, string bn);
 		
 		~Breed();
 

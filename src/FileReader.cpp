@@ -44,7 +44,7 @@ void FileReader::paternalTree()
 		if(inputName == inventory[i].getName()) {
 			Dog *dog = &inventory[i];
 			inInventory = true;
-			cout << inputName + " <-- " << traverseTree(dog, "") << endl;
+			cout << inputName + " <-- " << traverseTree(dog, "") + "\n" << endl;
 		}
 		
 	}
@@ -52,6 +52,8 @@ void FileReader::paternalTree()
 	if(!inInventory) {
 		cout << inputName + " was not found in the inventory!" << endl;
 	}
+
+	paternalTree();
 }
 
 string FileReader::traverseTree(Dog *dog, string output) 
@@ -151,7 +153,12 @@ void FileReader::fileReader(string filename)
 			switch(counter) {
 				case 1:
 					// breed
-					breed = token;
+					if(token.compare("Husky") ==0 || token.compare("Corgi") == 0 || token.compare("Boxer") == 0){
+						breed = token;
+					}
+					else{
+						throw invalid_argument(token+ " is not a valid breed name");
+					}
 					break;
 				case 2:
 					// name
@@ -216,7 +223,7 @@ void FileReader::fileReader(string filename)
 		}
 
 		if(!hasDad || !hasMom) {
-			Breed dog2("N/A", "", "");
+			Breed dog2("N/A", "black", "Husky");
 
 			Breed *ptr3 = &dog2;
 			dog.setDad(ptr3);
