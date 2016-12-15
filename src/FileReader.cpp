@@ -38,14 +38,35 @@ void FileReader::paternalTree()
 
 	cout << '\n';
 
+	bool inInventory;
+
 	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
-
+			Dog *dog = &inventory[i];
+			inInventory = true;
+			cout << inputName + " <-- " << traverseTree(dog, "") << endl;
 		}
-
+		
 	}
-	cout << inputName + " was not found in the inventory!" << endl;
 
+	if(!inInventory) {
+		cout << inputName + " was not found in the inventory!" << endl;
+	}
+}
+
+string FileReader::traverseTree(Dog *dog, string output) 
+{
+	Dog *ptr = dog;
+	//cout << ptr -> getDad() -> getName() + "====" << endl;
+	// base case
+	if(ptr -> getDad() -> getName() == "N/A") {
+		output += " [END]";
+		return output;
+	}
+	else {
+		output += (ptr -> getDad() -> getName() + " <-- ");
+		return traverseTree(ptr -> getDad(), output);
+	}
 }
 
 // count the total number of dogs in the inventory
@@ -110,15 +131,15 @@ void FileReader::fileReader(string filename)
 		string token;
 		int counter = 0;
 
+		// fields to build a breed object
+		string breed;
+		string name;
+		string colour;
+		string dadName;
+		string momName;
+
 		// split the line up by commas
 		while(getline(ss, token, ',')) {
-
-			// fields to build a breed object
-			string breed;
-			string name;
-			string colour;
-			string dadName;
-			string momName;
 
 			//cout << "HELLOOO" << endl;
 
@@ -133,13 +154,13 @@ void FileReader::fileReader(string filename)
 			switch(counter) {
 				case 1:
 					// breed
-					name = token;
-					printElement(token, nameWidth);
+					breed = token;
 					break;
 				case 2:
 					// name
-					breed = token;
-					printElement(token, nameWidth);
+					name  = token;
+					printElement(name, nameWidth);
+					printElement(breed, nameWidth);
 					break;
 
 				case 3: 	
@@ -165,35 +186,50 @@ void FileReader::fileReader(string filename)
 					break;
 			}
 
-			// create a breed object based on the tokens in the line
-			Breed dog(name, colour, breed);
-
-			// set the dad/mom pointers to the correct object
-			for(unsigned int i = 0; i < inventory.size(); i++) {
-				if(!inventory.empty()) {
-
-					if(inventory[i].getName() == dadName) {
-						Breed *ptr1 = new Breed("", "", "");
-						*ptr1 = inventory[i];
-						dog.setDad(ptr1);
-					}
-
-					if(inventory[i].getName() == momName) {
-						Breed *ptr2 = new Breed("", "", "");
-						*ptr2 = inventory[i];
-						dog.setMom(ptr2);
-					}
-				}	
-			}
-			// add the dog to the inventory vector
-			inventory.push_back(dog);
-		}
+			
+ 		}
 
 		// at the end of the line add N/A if last token is null
 		if(counter == 4) {
 			printElement("N/A", nameWidth);
 		}
 		cout << '\n';
+
+		// create a breed object based on the tokens in the line
+		Breed dog(name, colour, breed);
+
+		bool hasDad, hasMom;
+
+		// set the dad/mom pointers to the correct object
+		for(unsigned int i = 0; i < inventory.size(); i++) {
+			if(!inventory.empty()) {
+
+				if(inventory[i].getName() == dadName) {
+					Breed *ptr1 = &inventory[i];
+					dog.setDad(ptr1);
+					hasDad = true;
+				}
+
+				if(inventory[i].getName() == momName) {
+					Breed *ptr2 = &inventory[i];
+					dog.setMom(ptr2);
+					hasMom = true;
+				}
+			}	
+		}
+
+		if(!hasDad || !hasMom) {
+			Breed dog2("N/A", "", "");
+
+			Breed *ptr3 = &dog2;
+			dog.setDad(ptr3);
+			dog.setMom(ptr3);
+
+		}
+
+		// add the dog to the inventory vector
+		inventory.push_back(dog);
+
 	}
 	cout << '\n';
 

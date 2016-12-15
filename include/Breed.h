@@ -13,6 +13,7 @@ class Breed: public Dog {
 
 	public:
 		Breed(string name = "default", string color = "default", string bn = "default");
+		
 		~Breed();
 
 		string getBreedName() {
