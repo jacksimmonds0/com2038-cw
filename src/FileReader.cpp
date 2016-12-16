@@ -17,7 +17,7 @@ template<typename T> void FileReader::printElement(T t, const int& width)
 {
 	const char separator = ' ';
 	// set the fill based on the width input and then the input string t
-    cout << left << setw(width) << setfill(separator) << t;
+	cout << left << setw(width) << setfill(separator) << t;
 }
 
 // outputting the headers in the correct format as required 
