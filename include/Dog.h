@@ -36,7 +36,7 @@ class Dog {
 			return mom;
 		}
 
-		// use to set te dad/mom pointer at object creation
+		// use to set the dad/mom pointer at object creation
 		// after parsing in the CSV file
 		void setDad(Dog* d) {
 			dad = d;

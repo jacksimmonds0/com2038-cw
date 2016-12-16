@@ -60,7 +60,7 @@ void FileReader::paternalTree()
 	// loop through the inventory
 	for(unsigned int i = 0; i < inventory.size(); i++) {
 		if(inputName == inventory[i].getName()) {
-			// if the input name matches a dog in the inventory start transversing the parental tree
+			// if the input name matches a dog in the inventory start traversing the parental tree
 			Dog *dog = &inventory[i];
 			inInventory = true;
 			cout << inputName + " <-- " << traverseTree(dog, "") << endl;
@@ -186,7 +186,7 @@ void FileReader::fileReader(string filename)
 					break;
 
 				case 2:
-					name  = token;
+					name = token;
 					break;
 
 				case 3: 	
@@ -203,7 +203,7 @@ void FileReader::fileReader(string filename)
 
 				default:
 					// error handling for the CSV file formatting
-					throw invalid_argument("\nCSV file is not formatted correctly");
+					throw invalid_argument("\nCSV file is not formatted correctly\n");
 					break;
 			}
  		}
@@ -255,8 +255,6 @@ void FileReader::fileReader(string filename)
 		inventory.push_back(dog);
 
 	}
-
-	cout << '\n';
 
 	// call the paternal tree method since the file has been successfully parsed
 	paternalTree();
