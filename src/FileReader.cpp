@@ -77,8 +77,6 @@ int FileReader::totalDogs(string filename)
 // reading the csv file for the inventory input
 void FileReader::fileReader(string filename) 
 {
-	first = true;
-
 	// open input stream for the file
 	ifstream file;
 	
@@ -206,6 +204,7 @@ void FileReader::fileReader(string filename)
 
 		const int nameWidth = 9;
 
+		// printing the last dog that has been added to the inventory vector
 		printElement(inventory[inventory.size()-1].getName(), nameWidth);
 		printElement(inventory[inventory.size()-1].getBreedName(), nameWidth);
 		printElement(inventory[inventory.size()-1].getColor(), nameWidth);
@@ -217,7 +216,7 @@ void FileReader::fileReader(string filename)
 		printElement(mom -> getMom() -> getName(), nameWidth);
 		cout << '\n';
 
-		
+		// when reached the end of the file let the user find a dogs paternal tree
 		if(total == totalCounter) {
 			cout << '\n';
 			string inputName;
@@ -240,13 +239,6 @@ void FileReader::fileReader(string filename)
 				}	
 			}
 
-			// input string to exit the program and clear the memory using "EXIT"
-			if(inputName ==  "EXIT") {
-				// swaps inventory to empty array to clear memory
-				vector<Breed>().swap(inventory);
-				exit(1);
-			}
-
 			if(!inInventory) {
 				// if the dog is not in the inventory print the input name and the string
 				cout << inputName + " was not found in the inventory!" << endl;
@@ -254,10 +246,5 @@ void FileReader::fileReader(string filename)
 			break;			
 
 		}
-		
-
 	}
-
-	// call the paternal tree method since the file has been successfully parsed
-	//paternalTree();
 }
